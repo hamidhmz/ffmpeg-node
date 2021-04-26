@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  node-video-trimming:
+    container_name: node-video-trimming
+    restart: always
+    build:
+      context: ../../
+      dockerfile: ./docker/image/development.Dockerfile
+    image: node-video-trimming:1.0.0-dev
+    volumes:
+      - ../../:/app
+      - downloaded-videos:/app/public/video-files
+    ports:
+      - '8020:3000'
+    command: ['sh', '-c', 'yarn install && yarn start:dev']
+    env_file:
+      - ../../.env
+
+volumes:
+  downloaded-videos:
